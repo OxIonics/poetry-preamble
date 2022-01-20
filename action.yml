@@ -4,6 +4,11 @@ inputs:
   INSTALL_ARGS:
     description: "Additional args to poetry install"
     required: false
+  GHA_TOKEN:
+    description: >-
+      The read-only shared user GitHub token for checkout private
+      repositories.
+    required: false
 
 runs:
   using: "composite"
@@ -18,4 +23,7 @@ runs:
     - name: Allow git dependencies
       if: github.event_name != 'push'
       shell: bash
-      run: git config --global url."https://oxionics:${{ secrets.GHA_TOKEN }}@github.com".insteadOf ssh://git@github.com
+      run: >-
+        git config --global
+        url."https://oxionics:${{ secrets.GHA_TOKEN }}@github.com".insteadOf
+        ssh://git@github.com
