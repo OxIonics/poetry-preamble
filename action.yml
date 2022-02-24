@@ -19,10 +19,6 @@ runs:
         fetch-depth: 0
         submodules: recursive
 
-    - name: Install
-      shell: bash
-      run: $POETRY install ${{ inputs.INSTALL_ARGS }}
-
     - name: Allow git dependencies
       if: github.event_name != 'push'
       shell: bash
@@ -30,3 +26,7 @@ runs:
         git config --global
         url."https://oxfordionics:${{ inputs.GHA_TOKEN }}@github.com".insteadOf
         ssh://git@github.com
+
+    - name: Install
+      shell: bash
+      run: $POETRY install ${{ inputs.INSTALL_ARGS }}
