@@ -20,6 +20,10 @@ runs:
         submodules: recursive
         lfs: true
 
+    - name: LFS checkout
+      shell: bash
+      run: git lfs checkout
+
     - name: Allow git dependencies
       if: github.event_name != 'push'
       shell: bash
