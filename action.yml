@@ -34,4 +34,4 @@ runs:
 
     - name: Install
       shell: bash
-      run: $POETRY install ${{ inputs.INSTALL_ARGS }}
+      run: poetry install ${{ inputs.INSTALL_ARGS }}
