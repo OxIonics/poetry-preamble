@@ -41,5 +41,6 @@ runs:
       run: |
         if poetry show maturin
         then
+            rustup default stable
             poe maturin
         fi
