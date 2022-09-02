@@ -35,3 +35,12 @@ runs:
     - name: Install
       shell: bash
       run: poetry install ${{ inputs.INSTALL_ARGS }}
+
+    - name: Maturin
+      shell: bash
+      run: |
+        if poetry show maturin
+        then
+            rustup default stable
+            poe maturin
+        fi
