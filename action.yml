@@ -42,5 +42,6 @@ runs:
         if poetry show maturin
         then
             rustup default stable
+            rustup install nightly
             poe maturin
         fi
