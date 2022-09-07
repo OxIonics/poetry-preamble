@@ -32,15 +32,10 @@ runs:
         url."https://oxfordionics:${{ inputs.GHA_TOKEN }}@github.com".insteadOf
         ssh://git@github.com
 
+    - name: Set default Rust toolchain
+      shell: bash
+      run: rustup default stable
+
     - name: Install
       shell: bash
       run: poetry install ${{ inputs.INSTALL_ARGS }}
-
-    - name: Maturin
-      shell: bash
-      run: |
-        if poetry show maturin
-        then
-            rustup default stable
-            poe maturin
-        fi
