@@ -27,10 +27,9 @@ runs:
     - name: Allow git dependencies
       if: ${{ github.ref != 'refs/heads/master' }}
       shell: bash
-      run: >-
-        git config --global
-        url."https://oxfordionics:${{ inputs.GHA_TOKEN }}@github.com".insteadOf
-        ssh://git@github.com
+      run: |
+        git config --global url."https://oxfordionics:${{ inputs.GHA_TOKEN }}@github.com".insteadOf ssh://git@github.com
+        git config --global url."https://oxfordionics:${{ inputs.GHA_TOKEN }}@github.com/".insteadOf git@github.com:
 
     - name: Set default Rust toolchain
       shell: bash
