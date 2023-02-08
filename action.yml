@@ -35,6 +35,24 @@ runs:
       shell: bash
       run: rustup default stable
 
+    - name: Configure poetry virtualenv location
+      shell: bash
+      run: poetry config virtualenvs.in-project true
+
+    - name: Get python version
+      id: python-version
+      shell: bash
+      run: echo "version=$(python --version | sed 's/.* \([0-9]\+\.[0-9]\+\).*/\1/')" >> $GITHUB_OUTPUT
+
+    - name: Cache virtualenv
+      uses: actions/cache@v3
+      with:
+        path: ./.venv
+        key: poetry-${{ runner.os }}-py${{ steps.python-version.outputs.version }}-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+          poetry-${{ runner.os }}-py${{ steps.python-version.outputs.version }}-${{ hashFiles('**/poetry.lock') }}
+          poetry-${{ runner.os }}-py${{ steps.python-version.outputs.version }}-
+
     - name: Install
       shell: bash
       run: poetry install ${{ inputs.INSTALL_ARGS }}
