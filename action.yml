@@ -9,6 +9,10 @@ inputs:
       The read-only shared user GitHub token for checkout private
       repositories.
     required: false
+  PYTHON_VERSION:
+    description: The python version to use
+    required: false
+    default: "3.8"
 
 runs:
   using: "composite"
@@ -34,6 +38,21 @@ runs:
     - name: Set default Rust toolchain
       shell: bash
       run: rustup default stable
+
+    - name: Configure poetry virtualenv location
+      shell: bash
+      run: |
+        poetry config virtualenvs.in-project true
+        poetry env use ${{ inputs.PYTHON_VERSION }}
+
+    - name: Cache virtualenv
+      uses: actions/cache@v3
+      with:
+        path: ./.venv
+        key: poetry-${{ runner.os }}-py${{ inputs.PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}
+        restore-keys: |
+          poetry-${{ runner.os }}-py${{ inputs.PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}
+          poetry-${{ runner.os }}-py${{ inputs.PYTHON_VERSION }}-
 
     - name: Install
       shell: bash
