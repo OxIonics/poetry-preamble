@@ -56,4 +56,4 @@ runs:
 
     - name: Install
       shell: bash
-      run: poetry install ${{ inputs.INSTALL_ARGS }}
+      run: poetry install ${{ inputs.INSTALL_ARGS }} --sync
