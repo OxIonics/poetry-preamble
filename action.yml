@@ -23,6 +23,7 @@ runs:
         fetch-depth: 0
         submodules: recursive
         lfs: true
+        token: ${{ inputs.GHA_TOKEN }}
 
     - name: LFS checkout
       shell: bash
