@@ -57,3 +57,6 @@ runs:
     - name: Install
       shell: bash
       run: poetry install ${{ inputs.INSTALL_ARGS }} --sync
+      env:
+        PIP_REQUESTS_TIMEOUT: 300
+        POETRY_REQUESTS_TIMEOUT: 300
