@@ -13,10 +13,6 @@ inputs:
     description: The python version to use
     required: false
     default: "3.10"
-  CACHE_VIRTUAL_ENV:
-    description: Cache the python virtual env
-    required: false
-    default: "true"
 
 runs:
   using: "composite"
@@ -49,15 +45,6 @@ runs:
       run: |
         poetry config virtualenvs.in-project true
         poetry env use ${{ inputs.PYTHON_VERSION }}
-
-    - name: Cache virtualenv
-      if: ${{ inputs.CACHE_VIRTUAL_ENV == 'true' }}
-      uses: actions/cache@v4
-      with:
-        path: ./.venv
-        key: poetry-${{ runner.os }}-py${{ inputs.PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}
-        restore-keys: |
-          poetry-${{ runner.os }}-py${{ inputs.PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}
 
     - name: Install
       shell: bash
