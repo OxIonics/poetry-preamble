@@ -42,13 +42,11 @@ runs:
 
     - name: Configure poetry virtualenv location
       shell: bash
-      run: |
-        poetry config virtualenvs.in-project true
-        poetry env use ${{ inputs.PYTHON_VERSION }}
+      run: poetry env use ${{ inputs.PYTHON_VERSION }}
 
     - name: Install
       shell: bash
-      run: poetry install ${{ inputs.INSTALL_ARGS }} --sync
+      run: poetry sync ${{ inputs.INSTALL_ARGS }}
       env:
         PIP_REQUESTS_TIMEOUT: 300
         POETRY_REQUESTS_TIMEOUT: 300
